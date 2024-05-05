@@ -2,6 +2,7 @@
 
 namespace Apydevs\Customers\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
@@ -23,7 +24,15 @@ class Customer extends Model
         return $this->belongsTo('App\Models\User');
     }
 
-
+    /**
+     * Get the Customer's Whole name.
+     */
+    protected function fullName(): Attribute
+    {
+        return Attribute::make(
+            get: fn (string $value) => ucfirst($this->first_name).' '.ucfirst($this->last_name),
+        );
+    }
 
 
     public static function generateAccountReference()

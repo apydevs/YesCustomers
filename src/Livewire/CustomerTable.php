@@ -11,6 +11,7 @@ class CustomerTable  extends DataTableComponent
 {
     protected $model = Customer::class;
 
+
     public function configure(): void
 {
     $this->setPrimaryKey('id');
@@ -25,10 +26,11 @@ class CustomerTable  extends DataTableComponent
             ->sortable()->searchable(),
         Column::make('AccountNo', 'account_reference')
             ->sortable()->searchable(),
+        Column::make('Name')->label(fn ($row, Column $column) => $row->first_name. ' ' . $row->last_name),
         Column::make('First Name', 'first_name')
-            ->sortable()->searchable(),
+            ->sortable()->searchable()->deselected(),
         Column::make('Last Name', 'last_name')
-            ->sortable()->searchable(),
+            ->sortable()->searchable()->deselected(),
         Column::make('Email', 'email')
             ->sortable()->searchable(),
         Column::make('Phone', 'phone')
@@ -41,7 +43,7 @@ class CustomerTable  extends DataTableComponent
             ->sortable()->searchable()->deselected(),
         Column::make('City', 'city')
             ->sortable()->searchable()->deselected(),
-        Column::make('State', 'state')
+        Column::make('County', 'state')
             ->sortable()->searchable()->deselected(),
         Column::make('Country', 'country')
             ->sortable()->searchable()->deselected(),
@@ -58,16 +60,24 @@ class CustomerTable  extends DataTableComponent
             ->sortable()->searchable()->deselected(),
         Column::make('Action')
             ->label(
-                fn ($row, Column $column) => view('components.livewire.datatables.action-column')->with(
+                fn ($row, Column $column) => view('customers::components.livewire.datatables.action-column')->with(
                     [
-                        'viewLink' => route('customer.view', $row),
-                        'deleteLink' => route('customer.delete', $row),
+                        'editLink' =>  $row,
+                        'deleteLink' => route('customers.destroy', $row),
+                        'hoverName' => $row->first_name. ' ' . $row->last_name,
+                        'id'=>$row->id
                     ]
                 )
             )->html(),
 //        Column::make('Deleted At', 'deleted_at') // If you are using soft deletes
 //        ->sortable()
     ];
+    }
+
+
+    public function customerSelected(Customer $id){
+
+        dd($id);
     }
 
 
