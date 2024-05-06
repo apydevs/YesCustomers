@@ -2,8 +2,10 @@
 
 namespace Apydevs\Customers\Models;
 
+use Apydevs\Orders\Models\Order;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
@@ -38,5 +40,15 @@ class Customer extends Model
     public static function generateAccountReference()
     {
         return 'ACCT-' . time() . Str::random(12);
+    }
+
+
+    /**
+     * Requires Orders Module to be installed.
+     * ApyDevs/orders
+     * @return HasMany
+     */
+    public function orders(){
+        return $this->hasMany(Order::class,'customer_id','id');
     }
 }
