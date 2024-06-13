@@ -26,17 +26,17 @@ class Customer extends Model
         return $this->belongsTo('App\Models\User');
     }
 
+
+
     /**
      * Get the Customer's Whole name.
      */
-    protected function fullName(): Attribute
+    public function getFullNameAttribute()
     {
-        return Attribute::make(
-            get: fn (string $value) => ucfirst($this->first_name).' '.ucfirst($this->last_name),
-        );
+        return "{$this->first_name} {$this->last_name}";
     }
 
-
+    
     public static function generateAccountReference()
     {
         return 'ACCT-' . time() . Str::random(12);

@@ -14,7 +14,7 @@ return new class() extends Migration {
             $table->id();
             $table->string('first_name');
             $table->string('last_name');
-            $table->string('email')->unique();
+            $table->string('email')->nullable();
             $table->string('phone')->nullable();
             $table->date('date_of_birth')->nullable();
             $table->string('address_line1');
@@ -24,7 +24,7 @@ return new class() extends Migration {
             $table->string('country');
             $table->string('postal_code');
             $table->unsignedBigInteger('user_id'); // Foreign key to users table
-            $table->string('account_reference', 20)->unique(); // Unique Account Reference Number
+            $table->string('account_reference')->unique(); // Unique Account Reference Number
             $table->timestamps();
             $table->softDeletes();
 

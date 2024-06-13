@@ -26,7 +26,7 @@ class CustomerFactory extends Factory
             'address_line1' => $this->faker->streetAddress,
             'address_line2' => $this->faker->secondaryAddress,
             'city' => $this->faker->city,
-            'state' => $this->faker->county(),
+            'state' => $this->faker->word,
             'country' => $this->faker->country,
             'postal_code' => $this->faker->postcode,
             'user_id' => \App\Models\User::all()->random(), // Assume you have a User model and factory
