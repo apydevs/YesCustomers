@@ -42,10 +42,6 @@
 
 
 
-        <x-slideover.left>
-                  <livewire:customers::customer-information/>
-        </x-slideover.left>
-
 
 </div>
 </x-app-layout>

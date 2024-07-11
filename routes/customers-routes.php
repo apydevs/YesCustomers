@@ -14,6 +14,6 @@ Route::middleware([
 // Route::post('/customers', [CustomersController::class, 'store'])->name('customers.store');
     Route::get('/customers/{customer}', [CustomerController::class, 'show'])->name('customers.show');
 // Route::get('/customers/{customer}/edit', [CustomersController::class, 'edit'])->name('customers.edit');
-// Route::put('/customers/{customer}', [CustomersController::class, 'update'])->name('customers.update');
+ Route::post('/customers/{customer}', [CustomerController::class, 'update'])->name('customer.update.address');
     Route::delete('/customers/{customer}', [CustomerController::class, 'destroy'])->name('customers.destroy');
 });

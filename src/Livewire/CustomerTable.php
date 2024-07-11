@@ -21,12 +21,26 @@ class CustomerTable  extends DataTableComponent
     public function columns(): array
 {
     return [
+        Column::make('Action')
+            ->label(
+                fn ($row, Column $column) => view('customers::components.livewire.datatables.action-column')->with(
+                    [
+
+                        'editLink' =>  route('customers.show', $row),
+//                        'deleteLink' => route('customers.destroy', $row),
+//                        'hoverName' => $row->first_name. ' ' . $row->last_name,
+                        'id'=>$row->id
+                    ]
+                )
+            ),
         Column::make('ID', 'id')
             ->hideIf(true)
             ->sortable()->searchable(),
         Column::make('AccountNo', 'account_reference')
             ->sortable()->searchable(),
         Column::make('Name')->label(fn ($row, Column $column) => $row->first_name. ' ' . $row->last_name),
+        Column::make('Price Tier', 'price_tier')
+            ->sortable()->searchable(),
         Column::make('First Name', 'first_name')
             ->sortable()->searchable()->deselected(),
         Column::make('Last Name', 'last_name')
@@ -62,15 +76,15 @@ class CustomerTable  extends DataTableComponent
             ->label(
                 fn ($row, Column $column) => view('customers::components.livewire.datatables.action-column')->with(
                     [
-                        'editLink' =>  $row,
-                        'deleteLink' => route('customers.destroy', $row),
-                        'hoverName' => $row->first_name. ' ' . $row->last_name,
+
+                        'editLink' =>  route('customers.show', $row),
+//                        'deleteLink' => route('customers.destroy', $row),
+//                        'hoverName' => $row->first_name. ' ' . $row->last_name,
                         'id'=>$row->id
                     ]
                 )
             )->html(),
-//        Column::make('Deleted At', 'deleted_at') // If you are using soft deletes
-//        ->sortable()
+
     ];
     }
 
